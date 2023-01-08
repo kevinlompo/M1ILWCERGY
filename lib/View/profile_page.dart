@@ -33,6 +33,7 @@ class ProfilePageState extends State<ProfilePage> {
             List documents = snapshot.data!.docs;
             final docUser = FirebaseFirestore.instance.collection('UTILISATEURS').doc('MprP723hixSdFQ6QR7coth6gCku2');
 
+
             return ListView.builder(
                 itemCount: documents.length,
                 itemBuilder: (context,index){
@@ -83,30 +84,29 @@ class ProfilePageState extends State<ProfilePage> {
                                 onPressed: () {
                                   showDialog(
                                       context: context,
-                                  barrierDismissible: false,
+                                      barrierDismissible: false,
                                       builder: (context){
                                         return   AlertDialog(
-                                            title:  const Text('UPDATE'),
+                                          title:  const Text('UPDATE'),
                                           content:  const Text('Modifier le nom'),
-                                            actions: [
-                                              TextField(
-                                                controller: nom,
-                                              ),
-                                              TextButton(
-                                                  onPressed: () {
-                                                    docUser.update({
-                                                      'NOM' : nom!.text
-                                                    });
-                                                    Navigator.pop(context);
-                                                  }, child: const Text("Ok")),
-                                            ],
+                                          actions: [
+                                            TextField(
+                                              controller: nom,
+                                            ),
+                                            TextButton(
+                                                onPressed: () {
+                                                //FireStoreHelper().updateUser(, 'NOM':nom!.text); //'NOM' : nom!.text
+                                                  Navigator.pop(context);
+                                                }, child: const Text("Ok")),
+                                          ],
                                         );
                                       }
                                   );
                                 },
-                                child: const Text('Update'))
+                                child: const Text('Update')),
 
-                            /*   Switch(
+
+   Switch(
                                 value: monUtilisateur.genre,
                                 onChanged: ((bool newBool) {
                                   monUtilisateur.genre = newBool;
@@ -122,7 +122,8 @@ class ProfilePageState extends State<ProfilePage> {
                                     });
 
                                   });
-                                }))*/,
+                                }))
+,
                           ],
                         ),
                       ),
@@ -137,8 +138,11 @@ class ProfilePageState extends State<ProfilePage> {
           }
         }
     );
+
   }
+
 /* Future<void> setGenre(MyUser user, bool newBool, DocumentReference<Map<String, dynamic>> ) async {
    docUser.update()
-  }*/
+  }
+*/
 }

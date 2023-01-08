@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled/controller/DetailViewController.dart';
 import 'package:untitled/model/my_user.dart';
-import 'package:untitled/services/FirestoreHelper.dart';
+import 'package:untitled/services/FireStoreHelper.dart';
 import 'package:untitled/services/constants.dart';
+import 'package:untitled/controller/DetailViewController.dart';
 
 class AllFirebaseView extends StatefulWidget{
   @override
@@ -36,22 +38,30 @@ class AllFirebaseViewState extends State<AllFirebaseView>{
                 itemBuilder: (context,index){
                   MyUser monUtilisateur = MyUser(documents[index]);
                   if(monUtilisateur.id != myGlobalUser.id){
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(monUtilisateur.avatar!),
-                      ),
-                      title: Text(monUtilisateur.mail),
-                      trailing: const FaIcon(FontAwesomeIcons.message),
+                    return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(
+                            builder: (context){
+                              return DetailViewController(monUtilisateur: monUtilisateur);
+                            }
+                        ));
+                      },
+                      child: ListTile(
 
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(monUtilisateur.avatar!),
+                        ),
+                        title: Text(monUtilisateur.mail),
+                        trailing: const FaIcon(FontAwesomeIcons.message),
+
+                      ),
                     );
                   }
                   else{
                     return Container();
                   }
-
                 }
             );
-
           }
         }
     );

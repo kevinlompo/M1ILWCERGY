@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled/View/dashboard_view.dart';
-import 'package:untitled/View/profile_page.dart';
+//import 'package:untitled/View/profile_page.dart';
 import 'package:untitled/View/register_view.dart';
 import 'package:untitled/services/FireStoreHelper.dart';
 import 'package:untitled/services/constants.dart';
@@ -59,7 +59,7 @@ class SocialPageViewState extends State<SocialPageView>{
                 FireStoreHelper().connect(mail, password).then((value){
                   myGlobalUser = value;
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ProfilePage();
+                    return DashboardView();
                   }));
                 }).catchError((onError){
 

@@ -1,64 +1,82 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled/controller/all_firebase__view.dart';
+import 'package:untitled/controller/AllFavorisController.dart';
+import 'package:untitled/controller/AllFirebase_View.dart';
+import 'package:untitled/controller/MapsViewController.dart';
+import 'package:untitled/controller/MyDrawer.dart';
 import 'package:untitled/services/constants.dart';
+import 'package:untitled/controller/MapsController.dart';
 
-class DashboardView extends StatefulWidget {
+class DashboardView extends StatefulWidget{
   @override
-  DashbordViewState createState()=> DashbordViewState();
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return DashboardViewState();
+  }
 
 }
 
-class DashbordViewState extends State<DashboardView> {
+class DashboardViewState extends State<DashboardView>{
+  //variable
   int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashbord", style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 24
-        ),),
+      drawer: Container(
+        color: Colors.purple,
+        width: MediaQuery.of(context).size.width/2,
+        height: MediaQuery.of(context).size.height,
+        child: MyDrawer(),
       ),
-      body:  AllFirebaseView(),//bodyPage(pageIndex),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: bodyPage(pageIndex),
+      backgroundColor: Colors.purple,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
-        onTap: (value) {
+        onTap: (value){
           setState(() {
             pageIndex = value;
           });
+
         },
+
         items: const [
+
           BottomNavigationBarItem(
               icon: FaIcon(FontAwesomeIcons.facebook),
-            label: "Facebook"
+              label: "Facebook"
           ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.google),
-          label: "Google"),
+              icon: FaIcon(FontAwesomeIcons.map),
+              label: "Google Maps"
+          ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.amazon),
-          label: "Amazon"),
+              icon: FaIcon(FontAwesomeIcons.heart),
+              label: "Favoris"
+          ),
+
         ],
       ),
     );
   }
 
-  Widget bodyPage(int pageChoix){
+
+  Widget bodyPage(int pageChoix) {
     switch(pageChoix){
-      case 0 : return const Center(child: Text("Ma page"));
-      case 1 : return const Center(child: Text("Ma deuxième page"));
-      case 2 :return const Center(child: Text("Ma troisième page"));
-      default: return const Center(child: Text("Aucune page"));
+      case 0 : return Center(child: AllFirebaseView());
+
+      case 1 : return const MapsViewController();
+
+      case 2 : return AllFavorisController();
+
+      default : return const Center(child: Text("Aucune page"));
+
+
     }
-    return Center(
-      child: SizedBox(
-        height: 100,
-        width: 300,
-        child: Image.network(avatarDeafult),
-      ),
-    );
   }
+
 }

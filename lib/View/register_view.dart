@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/View/dashboard_view.dart';
-import 'package:untitled/View/profile_page.dart';
+//import 'package:untitled/View/profile_page.dart';
 import 'package:untitled/services/FireStoreHelper.dart';
 import 'package:untitled/services/constants.dart';
 
@@ -109,10 +109,10 @@ class RegisterViewState extends State<RegisterView> {
           const SizedBox(height: 10,),
           ElevatedButton(
               onPressed: () {
-                FireStoreHelper().register(nom!.text, prenom!.text, mail!.text, password!.text, genre!).then((value){
+                FireStoreHelper().register(nom!.text, prenom!.text, mail!.text, password!.text, genre).then((value){
                   myGlobalUser = value;
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ProfilePage();
+                    return DashboardView();
                   }));
                 }).catchError((onError){
                   popUp();
