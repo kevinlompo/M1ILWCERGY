@@ -12,14 +12,13 @@ class PermissionHandler {
     if(Platform.isAndroid){
       //Systeme android
       PermissionStatus storage = await Permission.storage.status;
-      PermissionStatus gps = await Permission.location.status;
+      PermissionStatus gps = await Permission.locationWhenInUse.status;
 
       //Vérifier le statut pour le stockage
       checkStatusStorage(storage);
 
       //Vérifier le statut du gps
       checkStatusLocation(gps);
-
 
     }
     else
@@ -45,13 +44,13 @@ class PermissionHandler {
 
 
     //cas réfusé
-      case PermissionStatus.denied : return await Permission.location.request().then((value) => checkStatusLocation(value));
+      case PermissionStatus.denied : return await Permission.locationWhenInUse.request().then((value) => checkStatusLocation(value));
     //cas seulement cette fois
 
 
-      case PermissionStatus.restricted : return await Permission.location.request().then((value) => checkStatusLocation(value));
+      case PermissionStatus.restricted : return await Permission.locationWhenInUse.request().then((value) => checkStatusLocation(value));
     //cas réussi
-      case PermissionStatus.granted : return await Permission.location.request().then((value) => checkStatusLocation(value));
+      case PermissionStatus.granted : return await Permission.locationWhenInUse.request().then((value) => checkStatusLocation(value));
       default : return Future.error("Erreur au niveau de la récupération du statuts");
     }
   }
