@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:untitled/model/my_user.dart';
 import 'package:untitled/services/constants.dart';
+import 'package:untitled/text_with_style.dart';
 import '../services/FireStoreHelper.dart';
 import 'AllFirebase_View.dart';
 
@@ -46,7 +47,7 @@ class _DetailViewControllerState extends State<DetailViewController> {
                 child: Column(
                   children: [
                     Center(
-                        child: Text(widget.monUtilisateur.nom)
+                        child: TextWithStyle(data: widget.monUtilisateur.nom, weight: FontWeight.bold, size: 20)
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +60,8 @@ class _DetailViewControllerState extends State<DetailViewController> {
                         ),
                         Column(
                           children: [
-                            Text("Genre: ${widget.monUtilisateur.genderString()}"),
+                           // Text("Genre: ${widget.monUtilisateur.genderString()}"),
+                            TextWithStyle(data: "Genre : ${widget.monUtilisateur.genderString()}", weight: FontWeight.bold, size: 15,)
                           ],
                         )
                       ],
