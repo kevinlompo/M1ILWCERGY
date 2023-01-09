@@ -29,7 +29,28 @@ class PermissionHandler {
   }
 
 
-  //Vérification des photos
+  //Vérification du gps
+  Future<PermissionStatus> checkStatusLocation(PermissionStatus permissionStatus) async {
+    switch(permissionStatus){
+    //cas toujours refusé
+      case PermissionStatus.permanentlyDenied : return Future.error("L'accès du gps est refusé");
+
+
+
+    //cas réfusé
+      case PermissionStatus.denied : return await Permission.photos.request().then((value) => checkStatusLocation(value));
+    //cas seulement cette fois
+
+
+      case PermissionStatus.restricted : return await Permission.photos.request().then((value) => checkStatusLocation(value));
+    //cas réussi
+      case PermissionStatus.granted : return await Permission.photos.request().then((value) => checkStatusLocation(value));
+      default : return Future.error("Erreur au niveau de la récupération du statuts");
+    }
+  }
+
+
+
   Future<PermissionStatus> checkStatusPhoto(PermissionStatus permissionStatus) async {
     switch(permissionStatus){
     //cas toujours refusé
@@ -38,16 +59,17 @@ class PermissionHandler {
 
 
     //cas réfusé
-      case PermissionStatus.denied : return await Permission.photos.request().then((value) => checkStatusPhoto(value));
+      case PermissionStatus.denied : return await Permission.location.request().then((value) => checkStatusPhoto(value));
     //cas seulement cette fois
 
 
-      case PermissionStatus.restricted : return await Permission.photos.request().then((value) => checkStatusPhoto(value));
+      case PermissionStatus.restricted : return await Permission.location.request().then((value) => checkStatusPhoto(value));
     //cas réussi
-      case PermissionStatus.granted : return await Permission.photos.request().then((value) => checkStatusPhoto(value));
+      case PermissionStatus.granted : return await Permission.location.request().then((value) => checkStatusPhoto(value));
       default : return Future.error("Erreur au niveau de la récupération du statuts");
     }
   }
+
 
 //verification du stockage ou disque interne android
   Future<PermissionStatus> checkStatusStorage(PermissionStatus permissionStatus) async {
